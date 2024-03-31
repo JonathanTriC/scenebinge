@@ -1,4 +1,4 @@
-package com.scenebinge
+package com.jonathantri.scenebinge
 
 import android.app.Application
 import com.facebook.react.PackageList
