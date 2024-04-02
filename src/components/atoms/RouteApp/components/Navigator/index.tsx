@@ -1,4 +1,4 @@
-import {SplashScreen} from '@components/pages';
+import {OnboardingScreen, SplashScreen} from '@components/pages';
 import {LoginScreen, SignUpScreen} from '@components/pages/Authentication';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
@@ -18,6 +18,7 @@ export const Navigator: React.FC<NavigatorProps> = () => {
         headerShown: false,
       }}>
       <Stack.Screen name={'SplashScreen'} component={SplashScreen} />
+      <Stack.Screen name={'OnboardingScreen'} component={OnboardingScreen} />
       <Stack.Screen name={'LoginScreen'} component={LoginScreen} />
       <Stack.Screen name={'SignUpScreen'} component={SignUpScreen} />
     </Stack.Navigator>
