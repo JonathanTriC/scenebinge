@@ -18,6 +18,12 @@ const Colors = {
   success: {
     base: '#4ADE80',
   },
+  warning: {
+    base: '#FACC15',
+  },
+  info: {
+    base: '#246BFD',
+  },
   white: '#FFFFFF',
 };
 

@@ -7,10 +7,8 @@ import {styles} from './style';
 import useLogin from './useLogin';
 
 const LoginScreen = () => {
-  const {navigateScreen, control, handleSubmit} = useLogin();
-  const onSubmit = (data: any) => {
-    console.log('Successful', JSON.stringify(data));
-  };
+  const {navigateScreen, control, handleSubmit, onSubmit} = useLogin();
+
   return (
     <KeyboardAwareScrollView
       style={{backgroundColor: Colors.primary.base}}

@@ -1,17 +1,18 @@
+import {_handlerGetItem} from '@constants/functional';
 import {Keys} from '@constants/keys';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {firebase} from '@react-native-firebase/auth';
 import {useEffect} from 'react';
 
 const useSplashScreen = (navigation: any) => {
   const handleNavigationAfterSplash = () => {
     const boot = async () => {
-      return await AsyncStorage.getItem(Keys.onboarded);
+      return await _handlerGetItem(Keys.onboarded);
     };
 
     const timeout = setTimeout(() => {
       boot().then(val => {
         if (val) {
-          navigation.reset({index: 0, routes: [{name: 'LoginScreen'}]});
+          checkIsUserLoggedIn();
         } else {
           navigation.reset({index: 0, routes: [{name: 'OnboardingScreen'}]});
         }
@@ -19,6 +20,15 @@ const useSplashScreen = (navigation: any) => {
     }, 3000);
 
     return () => clearTimeout(timeout);
+  };
+
+  const checkIsUserLoggedIn = () => {
+    let user = firebase.auth().currentUser?.uid;
+    if (user) {
+      navigation.reset({index: 0, routes: [{name: 'HomeScreen'}]});
+    } else {
+      navigation.reset({index: 0, routes: [{name: 'LoginScreen'}]});
+    }
   };
 
   useEffect(() => {

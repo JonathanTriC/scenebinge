@@ -8,11 +8,7 @@ import {styles} from './style';
 import useSignUp from './useSignUp';
 
 const SignUpScreen = () => {
-  const {navigation, popScreen, control, handleSubmit} = useSignUp();
-
-  const onSubmit = (data: any) => {
-    console.log('Successful', JSON.stringify(data));
-  };
+  const {navigation, popScreen, control, handleSubmit, onSubmit} = useSignUp();
 
   useLayoutEffect(() => {
     navigation.setOptions({

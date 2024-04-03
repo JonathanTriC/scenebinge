@@ -55,7 +55,6 @@ export type TextFieldtProps = {
   subLabel?: string;
   subLabelStyle?: any;
   editable?: boolean;
-  autoCapitalize?: TextInputProps['autoCapitalize'];
   onEndEditing?: TextInputProps['onEndEditing'];
   disabledRightIcon?: boolean;
   defaultValue?: string;
@@ -212,7 +211,7 @@ const TextField: FC<TextFieldtProps> = ({
           value={value}
           maxLength={maxLength}
           {...props}
-          autoCapitalize={props.autoCapitalize}
+          autoCapitalize={'none'}
           defaultValue={defaultValue}
         />
 

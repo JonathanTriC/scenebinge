@@ -1,5 +1,8 @@
+import {parseFirebaseAuthError, showErrorToast} from '@constants/functional';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useNavigate} from '@hooks/useNavigate';
+import {useFirebaseLogin} from '@services/firebase';
+import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 
@@ -9,17 +12,33 @@ const formSchema = z.object({
 });
 
 const useLogin = () => {
-  const {navigateScreen} = useNavigate();
-  const {control, handleSubmit} = useForm({
+  const {navigateScreen, resetNavigate} = useNavigate();
+  const {control, handleSubmit, setError} = useForm({
     defaultValues: {
       email: '',
-      full_name: '',
       password: '',
     },
     resolver: zodResolver(formSchema),
   });
 
-  return {navigateScreen, control, handleSubmit};
+  const {mutate: submitLogin, error} = useFirebaseLogin();
+
+  const onSubmit = async (data: any) => {
+    const loginData: FirebaseLogIn = {
+      email: data?.email,
+      password: data?.password,
+    };
+    await submitLogin(loginData);
+  };
+
+  useEffect(() => {
+    if (error) {
+      const errTxt = parseFirebaseAuthError(error?.code);
+      showErrorToast(errTxt);
+    }
+  }, [error]);
+
+  return {navigateScreen, control, handleSubmit, onSubmit};
 };
 
 export default useLogin;

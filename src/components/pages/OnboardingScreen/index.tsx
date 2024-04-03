@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import Colors from '@constants/colors';
+import {_handlerSetItem} from '@constants/functional';
 import {Keys} from '@constants/keys';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {FC} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
@@ -33,7 +33,7 @@ const slides = [
 
 const OnboardingScreen: FC<Props> = ({navigation}) => {
   const handleDone = async () => {
-    await AsyncStorage.setItem(Keys.onboarded, 'true');
+    await _handlerSetItem(Keys.onboarded, 'true');
     navigation.reset({index: 0, routes: [{name: 'LoginScreen'}]});
   };
 

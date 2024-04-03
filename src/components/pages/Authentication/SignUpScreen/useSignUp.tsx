@@ -1,6 +1,9 @@
+import {parseFirebaseAuthError, showErrorToast} from '@constants/functional';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useNavigate} from '@hooks/useNavigate';
 import {useNavigation} from '@react-navigation/native';
+import {useFirebaseSignUp} from '@services/firebase';
+import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 
@@ -20,8 +23,8 @@ const formSchema = z
 
 const useSignUp = () => {
   const navigation = useNavigation();
-  const {navigateScreen, popScreen} = useNavigate();
-  const {control, handleSubmit} = useForm({
+  const {navigateScreen, popScreen, resetNavigate} = useNavigate();
+  const {control, handleSubmit, setError} = useForm({
     defaultValues: {
       full_name: '',
       email: '',
@@ -30,8 +33,33 @@ const useSignUp = () => {
     },
     resolver: zodResolver(formSchema),
   });
+  const {mutate: submitSignUp, error} = useFirebaseSignUp();
 
-  return {navigation, navigateScreen, popScreen, control, handleSubmit};
+  const onSubmit = async (data: any) => {
+    const signUpData: FirebaseSignUp = {
+      email: data?.email,
+      password: data?.password,
+      full_name: data?.full_name,
+    };
+
+    await submitSignUp(signUpData);
+  };
+
+  useEffect(() => {
+    if (error) {
+      const errTxt = parseFirebaseAuthError(error?.code);
+      showErrorToast(errTxt);
+    }
+  }, [error]);
+
+  return {
+    navigation,
+    navigateScreen,
+    popScreen,
+    control,
+    handleSubmit,
+    onSubmit,
+  };
 };
 
 export default useSignUp;
