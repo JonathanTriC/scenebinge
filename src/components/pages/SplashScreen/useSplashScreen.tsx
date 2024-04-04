@@ -25,7 +25,7 @@ const useSplashScreen = (navigation: any) => {
   const checkIsUserLoggedIn = () => {
     let user = firebase.auth().currentUser?.uid;
     if (user) {
-      navigation.reset({index: 0, routes: [{name: 'HomeScreen'}]});
+      navigation.reset({index: 0, routes: [{name: 'BottomTabNavigator'}]});
     } else {
       navigation.reset({index: 0, routes: [{name: 'LoginScreen'}]});
     }

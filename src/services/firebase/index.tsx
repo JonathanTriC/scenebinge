@@ -20,7 +20,7 @@ export const useFirebaseLogin = () => {
         .signInWithEmailAndPassword(params?.email, params?.password)
         .then(async data => {
           await _handlerSetItem(Keys.userUID, data?.user?.uid);
-          resetNavigate('HomeScreen');
+          resetNavigate('BottomTabNavigator');
         })
         .catch(error => {
           setError(error);
@@ -62,7 +62,7 @@ export const useFirebaseSignUp = () => {
           }
         })
         .then(data => {
-          resetNavigate('HomeScreen');
+          resetNavigate('BottomTabNavigator');
         })
         .catch(error => {
           setError(error);

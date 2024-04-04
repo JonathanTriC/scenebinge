@@ -1,18 +1,17 @@
 import {_handlerCapitalizeEachWord} from '@constants/functional';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import {Text, View} from 'react-native';
 import useHome from './useHome';
 
 const HomeScreen = () => {
-  const {userData, logout} = useHome();
+  const {userData} = useHome();
+  const bottomTabBarHeight = useBottomTabBarHeight();
   return (
-    <View>
+    <View style={{paddingBottom: bottomTabBarHeight}}>
       <Text style={{color: 'white'}}>Home Screen</Text>
       <Text style={{color: 'white'}}>
         {_handlerCapitalizeEachWord(userData?.full_name) ?? '-'}
       </Text>
-      <TouchableOpacity style={{margin: 16}} onPress={logout}>
-        <Text style={{color: 'white'}}>LOGOUT</Text>
-      </TouchableOpacity>
     </View>
   );
 };

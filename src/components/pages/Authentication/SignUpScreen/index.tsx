@@ -1,4 +1,5 @@
-import {Button, Header, TextField} from '@components/atoms';
+import {Button, TextField} from '@components/atoms';
+import {Header} from '@components/molecules';
 import Colors from '@constants/colors';
 import {useLayoutEffect} from 'react';
 import {Controller} from 'react-hook-form';
