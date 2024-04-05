@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     position: 'absolute',
-    bottom: 0,
+    bottom: 10,
     alignItems: 'center',
   },
   txtContainer: {

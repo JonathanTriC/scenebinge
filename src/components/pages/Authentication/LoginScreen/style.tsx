@@ -40,5 +40,5 @@ export const styles = StyleSheet.create({
     marginVertical: 12,
   },
   loginBtnContainer: {position: 'absolute', bottom: 20},
-  loginBtn: {width: windowWidth - 32, paddingVertical: 14},
+  loginBtn: {width: windowWidth - 32, paddingVertical: 14, marginBottom: 20},
 });

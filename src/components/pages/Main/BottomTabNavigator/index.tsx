@@ -35,7 +35,7 @@ const BottomTabNavigator = () => {
             style={{
               ...StyleSheet.absoluteFillObject,
               overflow: 'hidden',
-              backgroundColor: 'transparent',
+              backgroundColor: 'rgba(7, 19, 37, 0.4)',
             }}
           />
         ),

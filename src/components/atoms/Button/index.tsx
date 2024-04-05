@@ -152,7 +152,7 @@ const styleProps = (
       backgroundColor: isDisabled
         ? Colors.dark.disabled
         : outline
-        ? Colors.primary.light1
+        ? Colors.transparent
         : danger
         ? Colors.danger.base
         : success
@@ -163,7 +163,7 @@ const styleProps = (
       borderColor: isDisabled
         ? 'transparent'
         : outline
-        ? Colors.primary.base
+        ? Colors.white
         : borderColor
         ? borderColor
         : '#C2185B',
@@ -182,7 +182,7 @@ const styleProps = (
       color: isDisabled
         ? Colors.white
         : outline || primaryLight
-        ? Colors.primary.base
+        ? Colors.white
         : danger
         ? Colors.danger.base
         : success

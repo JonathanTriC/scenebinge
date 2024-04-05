@@ -25,6 +25,7 @@ const Colors = {
     base: '#246BFD',
   },
   white: '#FFFFFF',
+  transparent: 'transparent',
 };
 
 export default Colors;

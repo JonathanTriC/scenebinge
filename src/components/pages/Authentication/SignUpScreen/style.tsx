@@ -39,5 +39,5 @@ export const styles = StyleSheet.create({
     gap: 4,
     marginVertical: 12,
   },
-  signUpBtn: {width: windowWidth - 32, paddingVertical: 14},
+  signUpBtn: {width: windowWidth - 32, paddingVertical: 14, marginBottom: 50},
 });
