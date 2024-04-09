@@ -6,7 +6,8 @@ const BASE_NAME_DISCOVER = '/discover';
 const BASE_NAME_MOVIE = '/movie';
 
 export const URL_PATH = {
-  trendingAllDay: `${BASE_NAME_TRENDING}/all/day`,
+  trendingMovie: `${BASE_NAME_TRENDING}/movie/day?language=en-US`,
+  trendingTv: `${BASE_NAME_TRENDING}/tv/day?language=en-US`,
   movieNowPlaying: (page: number) =>
     `${BASE_NAME_MOVIE}/now_playing?language=en-US&page=${page}`,
   moviePopular: (page: number) =>
