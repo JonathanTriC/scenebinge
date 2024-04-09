@@ -26,7 +26,13 @@ const Header = ({withBackIcon = true, label}: Props) => {
         ) : null}
 
         {label ? (
-          <Text style={styles.labelTxt}>Choose Your Interest</Text>
+          <Text
+            style={[
+              styles.labelTxt,
+              {paddingHorizontal: !withBackIcon ? 16 : 0},
+            ]}>
+            {label}
+          </Text>
         ) : null}
       </View>
     </SafeAreaView>
