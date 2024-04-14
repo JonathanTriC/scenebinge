@@ -4,12 +4,13 @@ import {Keys} from '@constants/keys';
 import {URL_PATH} from '@constants/url';
 import {useNavigate} from '@hooks/useNavigate';
 import {useFirebaseFetchDB} from '@services/firebase';
-import {useQueries} from '@tanstack/react-query';
-import {useEffect} from 'react';
+import {keepPreviousData, useQueries} from '@tanstack/react-query';
+import {useEffect, useState} from 'react';
 
 const useHome = () => {
-  const {navigateScreen, resetNavigate} = useNavigate();
+  const {navigateScreen} = useNavigate();
   const {mutate: fetchUser, data: userData} = useFirebaseFetchDB();
+  const [page, setPage] = useState<number>(1);
 
   const getUser = async () => {
     const userUID = await _handlerGetItem(Keys.userUID);
@@ -27,57 +28,71 @@ const useHome = () => {
   ] = useQueries({
     queries: [
       {
-        queryKey: ['nowPlaying', 1],
+        queryKey: ['nowPlaying', page],
         queryFn: () =>
           apiGet({
-            url: `${URL_PATH.movieNowPlaying(1)}`,
+            url: `${URL_PATH.movieNowPlaying(page)}`,
           }).then((res: IMovieList[]) => res.splice(0, 5)),
+        placeholderData: keepPreviousData,
       },
       {
-        queryKey: ['popularMovie', 1],
+        queryKey: ['popularMovie', page],
         queryFn: () =>
           apiGet({
-            url: `${URL_PATH.movieNowPlaying(1)}`,
+            url: `${URL_PATH.movieNowPlaying(page)}`,
           }).then((res: IMovieList[]) => res),
       },
       {
-        queryKey: ['actionMovie', 1],
-        queryFn: () =>
-          apiGet({
-            url: `${URL_PATH.movieDiscover(1, 'revenue', 'with_genres=28,12')}`,
-          }).then((res: IMovieList[]) => res),
-      },
-      {
-        queryKey: ['horrorMovie', 1],
-        queryFn: () =>
-          apiGet({
-            url: `${URL_PATH.movieDiscover(1, 'revenue', 'with_genres=27,53')}`,
-          }).then((res: IMovieList[]) => res),
-      },
-      {
-        queryKey: ['romanceMovie', 1],
+        queryKey: ['actionMovie', page],
         queryFn: () =>
           apiGet({
             url: `${URL_PATH.movieDiscover(
-              1,
+              page,
+              'revenue',
+              'with_genres=28,12',
+            )}`,
+          }).then((res: IMovieList[]) => res),
+        placeholderData: keepPreviousData,
+      },
+      {
+        queryKey: ['horrorMovie', page],
+        queryFn: () =>
+          apiGet({
+            url: `${URL_PATH.movieDiscover(
+              page,
+              'revenue',
+              'with_genres=27,53',
+            )}`,
+          }).then((res: IMovieList[]) => res),
+        placeholderData: keepPreviousData,
+      },
+      {
+        queryKey: ['romanceMovie', page],
+        queryFn: () =>
+          apiGet({
+            url: `${URL_PATH.movieDiscover(
+              page,
               'popularity',
               'with_genres=10749,35',
             )}`,
           }).then((res: IMovieList[]) => res),
+        placeholderData: keepPreviousData,
       },
       {
-        queryKey: ['koreanDrama', 1],
+        queryKey: ['koreanDrama', page],
         queryFn: () =>
           apiGet({
-            url: `${URL_PATH.koreanDramaDiscover(1, 18)}`,
+            url: `${URL_PATH.koreanDramaDiscover(page, 18)}`,
           }).then((res: IMovieList[]) => res),
+        placeholderData: keepPreviousData,
       },
       {
-        queryKey: ['koreanAction', 1],
+        queryKey: ['koreanAction', page],
         queryFn: () =>
           apiGet({
-            url: `${URL_PATH.koreanDramaDiscover(1, 10759)}`,
+            url: `${URL_PATH.koreanDramaDiscover(page, 10759)}`,
           }).then((res: IMovieList[]) => res),
+        placeholderData: keepPreviousData,
       },
     ],
   });
@@ -87,6 +102,7 @@ const useHome = () => {
   }, []);
 
   return {
+    navigateScreen,
     userData,
     nowPlayingQueries,
     popularMovieQueries,
@@ -95,6 +111,8 @@ const useHome = () => {
     romanceMovieQueries,
     koreanDramaQueries,
     koreanActionQueries,
+    page,
+    setPage,
   };
 };
 

@@ -7,12 +7,13 @@ import {styles} from './styles';
 type ListItemsProps = {
   data: IMovieList[];
   title: string;
+  onSeeMore: () => void;
 };
 
-const ListItems = ({data, title}: ListItemsProps) => {
+const ListItems = ({data, title, onSeeMore}: ListItemsProps) => {
   return (
     <View style={{marginTop: 20}}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onSeeMore}>
         <Text style={styles.title}>{title}</Text>
       </TouchableOpacity>
 

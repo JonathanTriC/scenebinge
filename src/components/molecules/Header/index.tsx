@@ -30,7 +30,8 @@ const Header = ({withBackIcon = true, label}: Props) => {
             style={[
               styles.labelTxt,
               {paddingHorizontal: !withBackIcon ? 16 : 0},
-            ]}>
+            ]}
+            numberOfLines={2}>
             {label}
           </Text>
         ) : null}
