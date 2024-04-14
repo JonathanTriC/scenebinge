@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   toastContainer: {
     position: 'absolute',
     zIndex: 999,
-    bottom: -24,
+    bottom: 10,
     right: 16,
     left: 16,
     borderRadius: 10,

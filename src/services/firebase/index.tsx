@@ -1,4 +1,9 @@
-import {_handlerRemoveItem, _handlerSetItem} from '@constants/functional';
+import {
+  _handlerGetItem,
+  _handlerRemoveItem,
+  _handlerSetItem,
+  showSuccessToast,
+} from '@constants/functional';
 import {Keys} from '@constants/keys';
 import {useNavigate} from '@hooks/useNavigate';
 import auth from '@react-native-firebase/auth';
@@ -124,6 +129,82 @@ export const useFirebaseFetchDB = () => {
         .on('value', snapshot => {
           setData(snapshot.val());
         });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    error,
+    data,
+    mutate: getData,
+  };
+};
+
+export const useFirebaseAddWatchList = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<any>();
+
+  const postData = async (params: FirebaseAddWatchList) => {
+    setError(undefined);
+    setLoading(true);
+
+    const userId = await _handlerGetItem(Keys.userUID);
+
+    var ref = database()
+      .ref()
+      .child('user')
+      .child(userId ?? '');
+
+    var watchListData = {
+      id: params?.id,
+      title: params?.title,
+      poster_path: params?.poster_path,
+    };
+
+    try {
+      let res = await ref
+        .child('watchlist')
+        .child(params?.title)
+        .set(watchListData, () => {
+          showSuccessToast('Success added to watchlist.');
+        });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    error,
+    mutate: postData,
+  };
+};
+
+export const useFirebaseGetWatchList = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<any>();
+  const [data, setData] = useState<any>();
+
+  const getData = async () => {
+    setError(undefined);
+    setLoading(true);
+
+    const userId = await _handlerGetItem(Keys.userUID);
+
+    var ref = database()
+      .ref()
+      .child('user')
+      .child(userId ?? '');
+    try {
+      let res = await ref.child('watchlist').on('value', snapshot => {
+        setData(snapshot.val());
+      });
     } catch (error) {
       setError(error);
     } finally {

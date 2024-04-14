@@ -6,6 +6,7 @@ import {IMAGE_URL} from '@constants/url';
 import {windowWidth} from '@constants/utils';
 import {BlurView} from '@react-native-community/blur';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import {useFirebaseAddWatchList} from '@services/firebase';
 import dayjs from 'dayjs';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -17,6 +18,7 @@ import useExplore from './useExplore';
 const ExploreScreen = () => {
   const bottomTabBarHeight = useBottomTabBarHeight();
   const {filterList, index, setIndex, filter, setFilter} = useExplore();
+  const {mutate: addWatchlist} = useFirebaseAddWatchList();
 
   return (
     <View style={{paddingBottom: bottomTabBarHeight}}>
@@ -94,7 +96,14 @@ const ExploreScreen = () => {
                       />
                       <TouchableOpacity
                         style={styles.heroBtnPlus}
-                        onPress={() => {}}>
+                        onPress={() => {
+                          const data: FirebaseAddWatchList = {
+                            id: item?.id ?? 0,
+                            title: item?.title ?? item?.name ?? '',
+                            poster_path: item?.poster_path ?? '',
+                          };
+                          addWatchlist(data);
+                        }}>
                         <Icon source={'plus'} size={20} color={Colors.white} />
                       </TouchableOpacity>
                     </View>
