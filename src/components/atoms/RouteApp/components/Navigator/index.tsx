@@ -1,4 +1,4 @@
-import {OnboardingScreen, SplashScreen} from '@components/pages';
+import {OnboardingScreen, SearchScreen, SplashScreen} from '@components/pages';
 import {LoginScreen, SignUpScreen} from '@components/pages/Authentication';
 import {BottomTabNavigator, HomeScreen} from '@components/pages/Main';
 import {ExploreScreen} from '@components/pages/Main/ExploreScreen';
@@ -6,7 +6,6 @@ import {ProfileScreen} from '@components/pages/Main/ProfileScreen';
 import {MoreMoviesScreen} from '@components/pages/MoreMoviesScreen';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import {ParamList} from 'type/screen';
 import {useNavigator} from './useNavigator';
 
 const Stack = createStackNavigator<ParamList>();
@@ -34,6 +33,7 @@ export const Navigator: React.FC<NavigatorProps> = () => {
       <Stack.Screen name={'HomeScreen'} component={HomeScreen} />
       <Stack.Screen name={'ProfileScreen'} component={ProfileScreen} />
       <Stack.Screen name={'MoreMoviesScreen'} component={MoreMoviesScreen} />
+      <Stack.Screen name={'SearchScreen'} component={SearchScreen} />
     </Stack.Navigator>
   );
 };

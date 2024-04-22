@@ -4,6 +4,7 @@ export const IMAGE_URL = `https://image.tmdb.org/t/p/original`;
 const BASE_NAME_TRENDING = '/trending';
 const BASE_NAME_DISCOVER = '/discover';
 const BASE_NAME_MOVIE = '/movie';
+const BASE_NAME_SEARCH = '/search';
 
 export const URL_PATH = {
   trendingMovie: `${BASE_NAME_TRENDING}/movie/day?language=en-US`,
@@ -22,4 +23,6 @@ export const URL_PATH = {
     `${BASE_NAME_DISCOVER}/tv?language=en-US&sort_by=popularity.desc&watch_region=ID&with_genres=${genre}&with_original_language=ko&with_watch_monetization_types=flatrate%7Cfree%7Cads%7Crent%7Cbuy${
       page ? `&page=${page}` : ''
     }`,
+  searchMovie: (query: string) =>
+    `${BASE_NAME_SEARCH}/multi?query=${query}&include_adult=false&language=en-US&page=1`,
 };

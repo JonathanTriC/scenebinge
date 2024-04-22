@@ -31,7 +31,9 @@ const HomeScreen = () => {
         <IconButton
           icon={'magnify'}
           iconColor={Colors.white}
-          onPress={() => {}}
+          onPress={() => {
+            navigateScreen('SearchScreen');
+          }}
         />
       </View>
 
