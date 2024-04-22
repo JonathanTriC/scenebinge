@@ -1,9 +1,9 @@
 import {Spacer} from '@components/atoms';
 import Colors from '@constants/colors';
 import {_handlerCapitalizeEachWord} from '@constants/functional';
+import {URL_PATH} from '@constants/url';
 import {ScrollView, Text, View} from 'react-native';
 import {IconButton} from 'react-native-paper';
-import {MoreMoviesScreenParams} from 'type/screen';
 import {Hero, ListItems} from './components';
 import {styles} from './styles';
 import useHome from './useHome';
@@ -44,7 +44,7 @@ const HomeScreen = () => {
           onSeeMore={() => {
             navigateScreen<MoreMoviesScreenParams>('MoreMoviesScreen', {
               title: 'Curated Picks for Your Weekend Binge',
-              query: popularMovieQueries,
+              url_path: `${URL_PATH.movieNowPlaying()}`,
             });
           }}
         />
@@ -55,7 +55,10 @@ const HomeScreen = () => {
           onSeeMore={() => {
             navigateScreen<MoreMoviesScreenParams>('MoreMoviesScreen', {
               title: 'Adrenaline Rush: Top Picks for Action Lovers',
-              query: actionMovieQueries,
+              url_path: `${URL_PATH.movieDiscover(
+                'revenue',
+                'with_genres=28,12',
+              )}`,
             });
           }}
         />
@@ -65,7 +68,10 @@ const HomeScreen = () => {
           onSeeMore={() => {
             navigateScreen<MoreMoviesScreenParams>('MoreMoviesScreen', {
               title: 'Scream Fest: Top Picks for Horror Enthusiasts',
-              query: horrorMovieQueries,
+              url_path: `${URL_PATH.movieDiscover(
+                'revenue',
+                'with_genres=27,53',
+              )}`,
             });
           }}
         />
@@ -75,7 +81,10 @@ const HomeScreen = () => {
           onSeeMore={() => {
             navigateScreen<MoreMoviesScreenParams>('MoreMoviesScreen', {
               title: "Love's Embrace: Romantic Films to Ignite Your Soul",
-              query: romanceMovieQueries,
+              url_path: `${URL_PATH.movieDiscover(
+                'popularity',
+                'with_genres=10749,35',
+              )}`,
             });
           }}
         />
@@ -85,7 +94,7 @@ const HomeScreen = () => {
           onSeeMore={() => {
             navigateScreen<MoreMoviesScreenParams>('MoreMoviesScreen', {
               title: 'K-Drama Fever: Top Picks for Fans of Korean Dramas',
-              query: koreanDramaQueries,
+              url_path: `${URL_PATH.koreanDramaDiscover(18)}`,
             });
           }}
         />
@@ -96,7 +105,7 @@ const HomeScreen = () => {
             navigateScreen<MoreMoviesScreenParams>('MoreMoviesScreen', {
               title:
                 'Escapism at Its Best: Action K-Dramas for an Epic Night In',
-              query: koreanActionQueries,
+              url_path: `${URL_PATH.koreanDramaDiscover(10759)}`,
             });
           }}
         />

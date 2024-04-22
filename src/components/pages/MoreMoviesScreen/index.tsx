@@ -4,13 +4,12 @@ import {IMAGE_URL} from '@constants/url';
 import {useLayoutEffect} from 'react';
 import {FlatList, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import useHome from '../Main/HomeScreen/useHome';
 import {styles} from './styles';
 import useMoreMovies from './useMoreMovies';
 
 const MoreMoviesScreen = () => {
-  const {navigation, title, query} = useMoreMovies();
-  const {page, setPage} = useHome();
+  const {navigation, title, data, flattenData, loadNextPageData} =
+    useMoreMovies();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -22,12 +21,10 @@ const MoreMoviesScreen = () => {
   return (
     <View style={{margin: 16}}>
       <FlatList
-        data={query.data}
+        data={flattenData}
         showsVerticalScrollIndicator={false}
         numColumns={3}
-        onEndReached={() => {
-          setPage(prevState => prevState + 1);
-        }}
+        onEndReached={loadNextPageData}
         onEndReachedThreshold={0.3}
         ListFooterComponent={() => <Spacer height={50} />}
         renderItem={({item}) => {

@@ -1,5 +1,3 @@
-import {UseQueryResult} from '@tanstack/react-query';
-
 interface SplashScreenParams {}
 interface OnboardingScreenParams {}
 interface LoginScreenParams {}
@@ -9,7 +7,7 @@ interface HomeScreenParams {}
 interface ProfileScreenParams {}
 interface MoreMoviesScreenParams {
   title: string;
-  query: UseQueryResult<IMovieList[], Error>;
+  url_path: string;
 }
 
 type ParamList = {

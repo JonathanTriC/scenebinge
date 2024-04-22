@@ -41,15 +41,16 @@ const useHome = () => {
           apiGet({
             url: `${URL_PATH.movieNowPlaying(page)}`,
           }).then((res: IMovieList[]) => res),
+        placeholderData: keepPreviousData,
       },
       {
         queryKey: ['actionMovie', page],
         queryFn: () =>
           apiGet({
             url: `${URL_PATH.movieDiscover(
-              page,
               'revenue',
               'with_genres=28,12',
+              page,
             )}`,
           }).then((res: IMovieList[]) => res),
         placeholderData: keepPreviousData,
@@ -59,9 +60,9 @@ const useHome = () => {
         queryFn: () =>
           apiGet({
             url: `${URL_PATH.movieDiscover(
-              page,
               'revenue',
               'with_genres=27,53',
+              page,
             )}`,
           }).then((res: IMovieList[]) => res),
         placeholderData: keepPreviousData,
@@ -71,9 +72,9 @@ const useHome = () => {
         queryFn: () =>
           apiGet({
             url: `${URL_PATH.movieDiscover(
-              page,
               'popularity',
               'with_genres=10749,35',
+              page,
             )}`,
           }).then((res: IMovieList[]) => res),
         placeholderData: keepPreviousData,
@@ -82,7 +83,7 @@ const useHome = () => {
         queryKey: ['koreanDrama', page],
         queryFn: () =>
           apiGet({
-            url: `${URL_PATH.koreanDramaDiscover(page, 18)}`,
+            url: `${URL_PATH.koreanDramaDiscover(18, page)}`,
           }).then((res: IMovieList[]) => res),
         placeholderData: keepPreviousData,
       },
@@ -90,7 +91,7 @@ const useHome = () => {
         queryKey: ['koreanAction', page],
         queryFn: () =>
           apiGet({
-            url: `${URL_PATH.koreanDramaDiscover(page, 10759)}`,
+            url: `${URL_PATH.koreanDramaDiscover(10759, page)}`,
           }).then((res: IMovieList[]) => res),
         placeholderData: keepPreviousData,
       },
