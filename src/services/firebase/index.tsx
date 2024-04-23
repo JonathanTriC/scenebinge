@@ -8,6 +8,7 @@ import {Keys} from '@constants/keys';
 import {useNavigate} from '@hooks/useNavigate';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
+import firestore from '@react-native-firebase/firestore';
 import {useState} from 'react';
 
 const {navigateScreen, resetNavigate} = useNavigate();
@@ -154,11 +155,6 @@ export const useFirebaseAddWatchList = () => {
 
     const userId = await _handlerGetItem(Keys.userUID);
 
-    var ref = database()
-      .ref()
-      .child('user')
-      .child(userId ?? '');
-
     var watchListData = {
       id: params?.id,
       title: params?.title,
@@ -166,10 +162,12 @@ export const useFirebaseAddWatchList = () => {
     };
 
     try {
-      let res = await ref
-        .child('watchlist')
-        .child(params?.title)
-        .set(watchListData, () => {
+      let res = await firestore()
+        .collection('users')
+        .doc(userId ?? '')
+        .collection('watchlist')
+        .add(watchListData)
+        .then(() => {
           showSuccessToast('Success added to watchlist.');
         });
     } catch (error) {
@@ -189,7 +187,7 @@ export const useFirebaseAddWatchList = () => {
 export const useFirebaseGetWatchList = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>();
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<any[]>([]);
 
   const getData = async () => {
     setError(undefined);
@@ -197,14 +195,25 @@ export const useFirebaseGetWatchList = () => {
 
     const userId = await _handlerGetItem(Keys.userUID);
 
-    var ref = database()
-      .ref()
-      .child('user')
-      .child(userId ?? '');
     try {
-      let res = await ref.child('watchlist').on('value', snapshot => {
-        setData(snapshot.val());
-      });
+      firestore()
+        .collection('users')
+        .doc(userId ?? '')
+        .collection('watchlist')
+        .get()
+        .then(querySnapshot => {
+          if (querySnapshot.size > 0) {
+            const arrayData: any[] = [];
+            querySnapshot.forEach(doc => {
+              const movieData = doc.data();
+              arrayData.push(movieData);
+              console.log('Movie data:', movieData);
+            });
+            setData(arrayData);
+          } else {
+            setData([]);
+          }
+        });
     } catch (error) {
       setError(error);
     } finally {

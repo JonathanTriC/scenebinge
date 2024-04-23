@@ -15,6 +15,8 @@ export const styles = StyleSheet.create({
   nameTxt: {
     flex: 1,
     color: Colors.white,
+    fontSize: 16,
+    fontWeight: '500',
   },
   rowTxt: {
     flexDirection: 'row',

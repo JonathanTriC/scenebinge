@@ -67,6 +67,7 @@ const SearchScreen = () => {
       ) : !isEmpty(searchQueryData) ? (
         <View>
           <FlatList
+            showsVerticalScrollIndicator={false}
             data={searchQueryData?.slice(0, 10)}
             renderItem={({item}) => (
               <View style={styles.rowTxt}>
@@ -79,6 +80,7 @@ const SearchScreen = () => {
                   style={styles.img}
                 />
                 <Text style={styles.nameTxt}>{item?.title ?? item?.name}</Text>
+                <Icon source={'chevron-right'} size={28} color={Colors.white} />
               </View>
             )}
             ListFooterComponent={() => <Spacer height={150} />}
