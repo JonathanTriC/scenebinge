@@ -1,4 +1,10 @@
-import {OnboardingScreen, SearchScreen, SplashScreen} from '@components/pages';
+import {
+  OnboardingScreen,
+  SearchScreen,
+  SplashScreen,
+  WatchHistoryScreen,
+  WatchlistScreen,
+} from '@components/pages';
 import {LoginScreen, SignUpScreen} from '@components/pages/Authentication';
 import {BottomTabNavigator, HomeScreen} from '@components/pages/Main';
 import {ExploreScreen} from '@components/pages/Main/ExploreScreen';
@@ -34,6 +40,11 @@ export const Navigator: React.FC<NavigatorProps> = () => {
       <Stack.Screen name={'ProfileScreen'} component={ProfileScreen} />
       <Stack.Screen name={'MoreMoviesScreen'} component={MoreMoviesScreen} />
       <Stack.Screen name={'SearchScreen'} component={SearchScreen} />
+      <Stack.Screen
+        name={'WatchHistoryScreen'}
+        component={WatchHistoryScreen}
+      />
+      <Stack.Screen name={'WatchlistScreen'} component={WatchlistScreen} />
     </Stack.Navigator>
   );
 };

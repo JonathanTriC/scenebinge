@@ -6,6 +6,8 @@ interface ExploreScreenParams {}
 interface HomeScreenParams {}
 interface ProfileScreenParams {}
 interface SearchScreenParams {}
+interface WatchHistoryScreenParams {}
+interface WatchlistScreenParams {}
 interface MoreMoviesScreenParams {
   title: string;
   url_path: string;
@@ -22,4 +24,6 @@ type ParamList = {
   ProfileScreen: ProfileScreenParams;
   MoreMoviesScreen: MoreMoviesScreenParams;
   SearchScreen: SearchScreenParams;
+  WatchHistoryScreen: WatchHistoryScreenParams;
+  WatchlistScreen: WatchlistScreenParams;
 };

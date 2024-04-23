@@ -22,12 +22,16 @@ const useProfile = () => {
     {
       icon: 'history',
       title: 'Watch History',
-      action: () => {},
+      action: () => {
+        navigateScreen('WatchHistoryScreen');
+      },
     },
     {
       icon: 'bookmark-outline',
       title: 'Watchlist',
-      action: () => {},
+      action: () => {
+        navigateScreen('WatchlistScreen');
+      },
     },
     {
       icon: 'logout',
