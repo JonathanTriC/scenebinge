@@ -1,4 +1,5 @@
 import Colors from '@constants/colors';
+import {windowHeight} from '@constants/utils';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -24,11 +25,24 @@ export const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: Colors.dark.disabled,
   },
+  emptyStateContainer: {
+    height: windowHeight - 250,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyStateTxt: {
+    textAlign: 'center',
+    color: Colors.white,
+  },
   img: {
     height: 80,
     width: 60,
     borderRadius: 10,
     marginHorizontal: 4,
     marginVertical: 8,
+  },
+  emptyImg: {
+    height: 150,
+    width: 150,
   },
 });

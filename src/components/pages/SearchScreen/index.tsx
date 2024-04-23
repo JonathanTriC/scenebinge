@@ -5,7 +5,7 @@ import {IMAGE_URL} from '@constants/url';
 import {isEmpty} from 'lodash';
 import {useLayoutEffect} from 'react';
 import {Controller} from 'react-hook-form';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Image, Text, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Icon} from 'react-native-paper';
@@ -13,7 +13,7 @@ import {styles} from './styles';
 import useSearch from './useSearch';
 
 const SearchScreen = () => {
-  const {navigation, control, trendingSearchData, searchQueryData} =
+  const {navigation, control, trendingSearchData, searchTxt, searchQueryData} =
     useSearch();
 
   useLayoutEffect(() => {
@@ -43,7 +43,7 @@ const SearchScreen = () => {
           )}
         />
       </View>
-      {isEmpty(searchQueryData) ? (
+      {isEmpty(searchTxt) ? (
         <View>
           <Text style={styles.titleTrending}>Trending Searches</Text>
           <FlatList
@@ -64,7 +64,7 @@ const SearchScreen = () => {
             )}
           />
         </View>
-      ) : (
+      ) : !isEmpty(searchQueryData) ? (
         <View>
           <FlatList
             data={searchQueryData?.slice(0, 10)}
@@ -83,6 +83,19 @@ const SearchScreen = () => {
             )}
             ListFooterComponent={() => <Spacer height={150} />}
           />
+        </View>
+      ) : (
+        <View style={styles.emptyStateContainer}>
+          <Image
+            source={require('@assets/images/emptySearch.png')}
+            style={styles.emptyImg}
+          />
+          <Text style={styles.titleTrending}>
+            Couldn't find "{searchTxt ?? ''}"
+          </Text>
+          <Text style={styles.emptyStateTxt}>
+            {`Try to check your spelling or search\nwith other keywords.`}
+          </Text>
         </View>
       )}
     </View>

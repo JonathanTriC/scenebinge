@@ -49,6 +49,7 @@ const useSearch = () => {
     navigation,
     control,
     trendingSearchData,
+    searchTxt,
     searchQueryData,
   };
 };
