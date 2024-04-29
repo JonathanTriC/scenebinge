@@ -26,6 +26,7 @@ const Colors = {
   },
   white: '#FFFFFF',
   transparent: 'transparent',
+  backgroundColorModal: 'rgba(26, 26, 26, 0.7)',
 };
 
 export default Colors;

@@ -43,4 +43,20 @@ export const styles = StyleSheet.create({
     width: 100,
     textAlign: 'center',
   },
+  rowVideos: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  imgVideos: {
+    width: 100,
+    height: 60,
+    borderRadius: 6,
+  },
+  txtVideos: {
+    flex: 1,
+    color: Colors.white,
+    fontSize: 14,
+    fontWeight: '500',
+  },
 });

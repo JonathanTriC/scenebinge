@@ -22,6 +22,7 @@ const useDetailMovie = () => {
   const [newMovieTitle, setNewMovieTitle] = useState<string>();
   const [isExist, setIsExist] = useState<boolean>(false);
   const [docId, setDocId] = useState<string>('');
+  const [isClickPlay, setClickPlay] = useState<boolean>(false);
 
   const {mutate: addWatchlist} = useFirebaseAddWatchList();
   const {mutate: removeWatchlist} = useFirebaseDeleteWatchList();
@@ -92,6 +93,8 @@ const useDetailMovie = () => {
     setNewMovieTitle,
     isExist,
     docId,
+    isClickPlay,
+    setClickPlay,
   };
 };
 
