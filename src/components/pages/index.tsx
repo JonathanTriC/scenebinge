@@ -1,3 +1,4 @@
+export * from './CastScreen';
 export * from './DetailMovieScreen';
 export * from './OnboardingScreen';
 export * from './SearchScreen';

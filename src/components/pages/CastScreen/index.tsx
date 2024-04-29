@@ -6,33 +6,24 @@ import {FlatList, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {styles} from './styles';
-import useMoreMovies from './useMoreMovies';
+import useCast from './useCast';
 
-const MoreMoviesScreen = () => {
-  const {
-    navigation,
-    navigateScreen,
-    title,
-    data,
-    flattenData,
-    loadNextPageData,
-  } = useMoreMovies();
+const CastScreen = () => {
+  const {navigation, navigateScreen, name, detailCastData} = useCast();
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
-      header: () => <Header label={title} />,
+      header: () => <Header label={name ?? ''} />,
     });
   }, []);
 
   return (
     <View style={{margin: 16}}>
       <FlatList
-        data={flattenData}
+        data={detailCastData?.cast?.reverse()}
         showsVerticalScrollIndicator={false}
         numColumns={3}
-        onEndReached={loadNextPageData}
-        onEndReachedThreshold={0.3}
         ListFooterComponent={() => <Spacer height={50} />}
         renderItem={({item}) => {
           return (
@@ -44,7 +35,11 @@ const MoreMoviesScreen = () => {
                 });
               }}>
               <FastImage
-                source={{uri: `${IMAGE_URL}${item?.poster_path}`}}
+                source={{
+                  uri: item?.poster_path
+                    ? `${IMAGE_URL}${item?.poster_path}`
+                    : `https://placehold.jp/110x150.png?text=Image%0AUnavailable`,
+                }}
                 style={styles.img}
               />
             </TouchableOpacity>
@@ -55,4 +50,4 @@ const MoreMoviesScreen = () => {
   );
 };
 
-export {MoreMoviesScreen};
+export {CastScreen};

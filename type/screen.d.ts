@@ -17,6 +17,11 @@ interface DetailMovieScreenParams {
   title: string;
 }
 
+interface CastScreenParams {
+  castID: number;
+  name: string;
+}
+
 type ParamList = {
   SplashScreen: SplashScreenParams;
   OnboardingScreen: OnboardingScreenParams;
@@ -31,4 +36,5 @@ type ParamList = {
   WatchHistoryScreen: WatchHistoryScreenParams;
   WatchlistScreen: WatchlistScreenParams;
   DetailMovieScreen: DetailMovieScreenParams;
+  CastScreen: CastScreenParams;
 };

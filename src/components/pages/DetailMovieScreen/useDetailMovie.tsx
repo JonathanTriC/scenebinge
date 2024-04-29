@@ -73,7 +73,7 @@ const useDetailMovie = () => {
   useEffect(() => {
     refetchMovie();
     refetchTv();
-  }, [getNewMovieID]);
+  }, [movieID, getNewMovieID]);
 
   useEffect(() => {
     watchlistDocId();

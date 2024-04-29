@@ -1,4 +1,5 @@
 import {
+  CastScreen,
   DetailMovieScreen,
   OnboardingScreen,
   SearchScreen,
@@ -69,6 +70,7 @@ export const Navigator: React.FC<NavigatorProps> = () => {
           },
         }}
       />
+      <Stack.Screen name={'CastScreen'} component={CastScreen} />
     </Stack.Navigator>
   );
 };

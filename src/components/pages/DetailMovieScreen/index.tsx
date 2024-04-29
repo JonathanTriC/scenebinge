@@ -105,7 +105,13 @@ const DetailMovieScreen = () => {
               data={detailData?.credits?.cast?.slice(0, 10)}
               renderItem={({item}) => {
                 return (
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigateScreen<CastScreenParams>('CastScreen', {
+                        castID: item?.id ?? 0,
+                        name: item?.name ?? '',
+                      })
+                    }>
                     <FastImage
                       source={{uri: `${IMAGE_URL}${item?.profile_path}`}}
                       style={{width: 80, height: 80, borderRadius: 40}}

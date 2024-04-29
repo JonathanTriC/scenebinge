@@ -6,6 +6,7 @@ const BASE_NAME_DISCOVER = '/discover';
 const BASE_NAME_MOVIE = '/movie';
 const BASE_NAME_TV = '/tv';
 const BASE_NAME_SEARCH = '/search';
+const BASE_NAME_PERSON = '/person';
 
 export const URL_PATH = {
   trendingMovie: `${BASE_NAME_TRENDING}/movie/day?language=en-US`,
@@ -30,4 +31,6 @@ export const URL_PATH = {
     `${BASE_NAME_MOVIE}/${movieId}?append_to_response=similar%2Cvideos%2Ccredits&language=en-US`,
   detailTV: (tvId: number) =>
     `${BASE_NAME_TV}/${tvId}?append_to_response=similar%2Cvideos%2Ccredits&language=en-US`,
+  detailCast: (castId: number) =>
+    `${BASE_NAME_PERSON}/${castId}/combined_credits?language=en-US`,
 };

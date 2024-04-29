@@ -3,7 +3,7 @@ import {useNavigate} from '@hooks/useNavigate';
 import {useInfiniteQuery} from '@tanstack/react-query';
 
 const useMoreMovies = () => {
-  const {navigation, getRouteParams} = useNavigate();
+  const {navigation, navigateScreen, getRouteParams} = useNavigate();
   const {title, url_path} = getRouteParams<MoreMoviesScreenParams>();
 
   const {data, fetchNextPage, hasNextPage} = useInfiniteQuery({
@@ -28,6 +28,7 @@ const useMoreMovies = () => {
 
   return {
     navigation,
+    navigateScreen,
     title,
     data,
     flattenData,
