@@ -12,6 +12,10 @@ interface MoreMoviesScreenParams {
   title: string;
   url_path: string;
 }
+interface DetailMovieScreenParams {
+  movieID: number;
+  title: string;
+}
 
 type ParamList = {
   SplashScreen: SplashScreenParams;
@@ -26,4 +30,5 @@ type ParamList = {
   SearchScreen: SearchScreenParams;
   WatchHistoryScreen: WatchHistoryScreenParams;
   WatchlistScreen: WatchlistScreenParams;
+  DetailMovieScreen: DetailMovieScreenParams;
 };

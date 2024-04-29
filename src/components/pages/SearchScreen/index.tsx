@@ -13,8 +13,14 @@ import {styles} from './styles';
 import useSearch from './useSearch';
 
 const SearchScreen = () => {
-  const {navigation, control, trendingSearchData, searchTxt, searchQueryData} =
-    useSearch();
+  const {
+    navigation,
+    navigateScreen,
+    control,
+    trendingSearchData,
+    searchTxt,
+    searchQueryData,
+  } = useSearch();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -53,7 +59,13 @@ const SearchScreen = () => {
             ItemSeparatorComponent={() => <View style={styles.border} />}
             ListFooterComponent={() => <View style={styles.border} />}
             renderItem={({item}) => (
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigateScreen<DetailMovieScreenParams>('DetailMovieScreen', {
+                    movieID: item?.id ?? 0,
+                    title: item?.title ?? item?.name ?? '',
+                  });
+                }}>
                 <View style={[styles.rowTxt, {paddingVertical: 6}]}>
                   <Icon source={'trending-up'} size={22} color={Colors.white} />
                   <Text style={styles.nameTxt}>
@@ -70,18 +82,32 @@ const SearchScreen = () => {
             showsVerticalScrollIndicator={false}
             data={searchQueryData?.slice(0, 10)}
             renderItem={({item}) => (
-              <View style={styles.rowTxt}>
-                <FastImage
-                  source={{
-                    uri: item?.poster_path
-                      ? `${IMAGE_URL}${item?.poster_path}`
-                      : `https://placehold.jp/60x80.png?text=Image%0AUnavailable`,
-                  }}
-                  style={styles.img}
-                />
-                <Text style={styles.nameTxt}>{item?.title ?? item?.name}</Text>
-                <Icon source={'chevron-right'} size={28} color={Colors.white} />
-              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  navigateScreen<DetailMovieScreenParams>('DetailMovieScreen', {
+                    movieID: item?.id ?? 0,
+                    title: item?.title ?? item?.name ?? '',
+                  });
+                }}>
+                <View style={styles.rowTxt}>
+                  <FastImage
+                    source={{
+                      uri: item?.poster_path
+                        ? `${IMAGE_URL}${item?.poster_path}`
+                        : `https://placehold.jp/60x80.png?text=Image%0AUnavailable`,
+                    }}
+                    style={styles.img}
+                  />
+                  <Text style={styles.nameTxt}>
+                    {item?.title ?? item?.name}
+                  </Text>
+                  <Icon
+                    source={'chevron-right'}
+                    size={28}
+                    color={Colors.white}
+                  />
+                </View>
+              </TouchableOpacity>
             )}
             ListFooterComponent={() => <Spacer height={150} />}
           />

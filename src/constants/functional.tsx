@@ -71,7 +71,6 @@ export const showWarningToast = (message: string, params?: ToastShowParams) => {
 };
 
 export const parseFirebaseAuthError = (errorCode: string) => {
-  console.log('🚀 ~ parseFirebaseAuthError ~ errorCode:', errorCode);
   switch (errorCode) {
     case 'auth/email-already-in-use':
       return `The email you provided is already registered.`;
@@ -214,3 +213,13 @@ export const parseGenreName = (ids: number[]) => {
 
 export const sleep = (ms: number) =>
   new Promise(resolve => setTimeout(resolve, ms));
+
+export const checkIsWatchlistExist = async (title: string) => {
+  try {
+    const value = await _handlerGetItem(`watchlist${title}`);
+
+    return !!value;
+  } catch (error) {
+    return false;
+  }
+};

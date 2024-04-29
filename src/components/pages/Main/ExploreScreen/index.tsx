@@ -17,7 +17,8 @@ import useExplore from './useExplore';
 
 const ExploreScreen = () => {
   const bottomTabBarHeight = useBottomTabBarHeight();
-  const {filterList, index, setIndex, filter, setFilter} = useExplore();
+  const {navigateScreen, filterList, index, setIndex, filter, setFilter} =
+    useExplore();
   const {mutate: addWatchlist} = useFirebaseAddWatchList();
 
   return (
@@ -87,7 +88,15 @@ const ExploreScreen = () => {
 
                     <View style={styles.heroBtnRow}>
                       <Button
-                        action={() => {}}
+                        action={() => {
+                          navigateScreen<DetailMovieScreenParams>(
+                            'DetailMovieScreen',
+                            {
+                              movieID: item?.id ?? 0,
+                              title: item?.title ?? item?.name ?? '',
+                            },
+                          );
+                        }}
                         label="Watch Now"
                         iconLeft={<Icon source={'play'} size={18} />}
                         background={Colors.white}

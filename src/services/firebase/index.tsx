@@ -3,6 +3,7 @@ import {
   _handlerRemoveItem,
   _handlerSetItem,
   showSuccessToast,
+  showWarningToast,
 } from '@constants/functional';
 import {Keys} from '@constants/keys';
 import {useNavigate} from '@hooks/useNavigate';
@@ -167,7 +168,8 @@ export const useFirebaseAddWatchList = () => {
         .doc(userId ?? '')
         .collection('watchlist')
         .add(watchListData)
-        .then(() => {
+        .then(querySnapshot => {
+          _handlerSetItem(`watchlist${params?.title}`, querySnapshot.id);
           showSuccessToast('Success added to watchlist.');
         });
     } catch (error) {
@@ -207,7 +209,6 @@ export const useFirebaseGetWatchList = () => {
             querySnapshot.forEach(doc => {
               const movieData = doc.data();
               arrayData.push(movieData);
-              console.log('Movie data:', movieData);
             });
             setData(arrayData);
           } else {
@@ -226,5 +227,43 @@ export const useFirebaseGetWatchList = () => {
     error,
     data,
     mutate: getData,
+  };
+};
+
+export const useFirebaseDeleteWatchList = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<any>();
+
+  const deleteData = async (docId: string, title: string) => {
+    setError(undefined);
+    setLoading(true);
+
+    const userId = await _handlerGetItem(Keys.userUID);
+
+    try {
+      firestore()
+        .collection('users')
+        .doc(userId ?? '')
+        .collection('watchlist')
+        .doc(docId)
+        .delete()
+        .then(() => {
+          _handlerRemoveItem(`watchlist${title}`);
+          showSuccessToast('Success removed item from watchlist.');
+        })
+        .catch((err: any) => {
+          showWarningToast('Failed removed item from watchlist.');
+        });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    error,
+    mutate: deleteData,
   };
 };

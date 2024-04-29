@@ -1,9 +1,11 @@
 import {apiGet} from '@api/wrapping';
 import {URL_PATH} from '@constants/url';
+import {useNavigate} from '@hooks/useNavigate';
 import {useQueries} from '@tanstack/react-query';
 import {useEffect, useState} from 'react';
 
 const useExplore = () => {
+  const {navigateScreen} = useNavigate();
   const [trendingMovieQueries, trendingTvQueries] = useQueries({
     queries: [
       {
@@ -52,6 +54,7 @@ const useExplore = () => {
   }, [trendingMovieQueries?.data]);
 
   return {
+    navigateScreen,
     filterList,
     index,
     setIndex,

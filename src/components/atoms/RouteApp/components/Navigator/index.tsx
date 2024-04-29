@@ -1,4 +1,5 @@
 import {
+  DetailMovieScreen,
   OnboardingScreen,
   SearchScreen,
   SplashScreen,
@@ -10,6 +11,7 @@ import {BottomTabNavigator, HomeScreen} from '@components/pages/Main';
 import {ExploreScreen} from '@components/pages/Main/ExploreScreen';
 import {ProfileScreen} from '@components/pages/Main/ProfileScreen';
 import {MoreMoviesScreen} from '@components/pages/MoreMoviesScreen';
+import {windowHeight} from '@constants/utils';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {useNavigator} from './useNavigator';
@@ -45,6 +47,28 @@ export const Navigator: React.FC<NavigatorProps> = () => {
         component={WatchHistoryScreen}
       />
       <Stack.Screen name={'WatchlistScreen'} component={WatchlistScreen} />
+      <Stack.Screen
+        name={'DetailMovieScreen'}
+        component={DetailMovieScreen}
+        options={{
+          gestureDirection: 'vertical',
+          gestureResponseDistance: windowHeight / 2,
+          cardStyleInterpolator: ({current, layouts}: any) => {
+            return {
+              cardStyle: {
+                transform: [
+                  {
+                    translateY: current.progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [layouts.screen.height, 0],
+                    }),
+                  },
+                ],
+              },
+            };
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 };

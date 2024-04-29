@@ -2,6 +2,7 @@ import {Button} from '@components/atoms';
 import Colors from '@constants/colors';
 import {parseGenreName} from '@constants/functional';
 import {IMAGE_URL} from '@constants/url';
+import {useNavigate} from '@hooks/useNavigate';
 import {BlurView} from '@react-native-community/blur';
 import {useFirebaseAddWatchList} from '@services/firebase';
 import dayjs from 'dayjs';
@@ -16,6 +17,8 @@ type HeroProps = {
 
 const Hero = ({data}: HeroProps) => {
   const {mutate: addWatchlist} = useFirebaseAddWatchList();
+  const {navigateScreen} = useNavigate();
+
   return (
     <FlatList
       nestedScrollEnabled
@@ -55,7 +58,15 @@ const Hero = ({data}: HeroProps) => {
 
                 <View style={styles.heroBtnRow}>
                   <Button
-                    action={() => {}}
+                    action={() => {
+                      navigateScreen<DetailMovieScreenParams>(
+                        'DetailMovieScreen',
+                        {
+                          movieID: item?.id ?? 0,
+                          title: item?.title ?? item?.name ?? '',
+                        },
+                      );
+                    }}
                     label="Watch Now"
                     iconLeft={<Icon source={'play'} size={18} />}
                     background={Colors.white}

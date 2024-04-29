@@ -12,7 +12,7 @@ const formSchema = z.object({
 });
 
 const useSearch = () => {
-  const {navigation} = useNavigate();
+  const {navigation, navigateScreen} = useNavigate();
   const {watch, control} = useForm({
     defaultValues: {
       search: '',
@@ -47,6 +47,7 @@ const useSearch = () => {
 
   return {
     navigation,
+    navigateScreen,
     control,
     trendingSearchData,
     searchTxt,
