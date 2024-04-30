@@ -26,6 +26,7 @@ const BottomTabNavigator = () => {
         tabBarStyle: {
           position: 'absolute',
           borderTopWidth: 0,
+          overflow: 'hidden',
         },
 
         tabBarBackground: () => (
