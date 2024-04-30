@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
     top: windowHeight * 0.2,
     left: windowWidth * 0.44,
     overflow: 'hidden',
+    borderRadius: 30,
   },
   playBlur: {
     overflow: 'hidden',

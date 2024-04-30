@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
     width: windowWidth - 90,
   },
-  closeBtn: {padding: 4, overflow: 'hidden'},
+  closeBtn: {padding: 4, overflow: 'hidden', borderRadius: 10},
   closeBtnBlur: {
     overflow: 'hidden',
     backgroundColor: 'transparent',
