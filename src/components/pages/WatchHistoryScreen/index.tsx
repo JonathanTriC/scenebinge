@@ -24,7 +24,7 @@ const WatchHistoryScreen = () => {
     <View style={styles.container}>
       {!isEmpty(watchHistoryData) ? (
         <View>
-          <Text style={styles.title}>Start Watch</Text>
+          <Text style={styles.title}>Continue Watch</Text>
           <FlatList
             showsVerticalScrollIndicator={false}
             data={watchHistoryData}
@@ -60,7 +60,7 @@ const WatchHistoryScreen = () => {
         </View>
       ) : (
         <View>
-          <Text style={styles.title}>Continue Watch</Text>
+          <Text style={styles.title}>Start Watch</Text>
           <View style={styles.emptyStateContainer}>
             <Image
               source={require('@assets/images/emptyState.png')}

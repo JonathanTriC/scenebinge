@@ -59,4 +59,27 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
+  // empty
+  title: {
+    color: Colors.white,
+    fontSize: 18,
+    fontWeight: '600',
+    marginVertical: 12,
+    textAlign: 'center',
+  },
+  emptyStateContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyStateTxt: {
+    textAlign: 'center',
+    color: Colors.white,
+  },
+  emptyImg: {
+    height: 150,
+    width: 150,
+  },
+  emptyCTA: {
+    marginTop: 12,
+  },
 });

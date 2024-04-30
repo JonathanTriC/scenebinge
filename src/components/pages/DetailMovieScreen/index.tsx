@@ -4,7 +4,15 @@ import {IMAGE_URL, YT_THUMBNAIL} from '@constants/url';
 import {windowHeight} from '@constants/utils';
 import {BlurView} from '@react-native-community/blur';
 import {GestureHandlerRefContext} from '@react-navigation/stack';
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {isEmpty} from 'lodash';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {ScrollView} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
@@ -133,38 +141,39 @@ const DetailMovieScreen = () => {
 
             <Spacer height={8} />
 
-            <View style={{marginHorizontal: 16}}>
-              <Text style={styles.headerTxt}>Explore More</Text>
-              <FlatList
-                nestedScrollEnabled
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={detailData?.similar?.results}
-                renderItem={({item}) => {
-                  return (
-                    <TouchableOpacity
-                      onPress={async () => {
-                        scrollViewRef.current?.scrollTo?.({
-                          y: 0,
-                          animated: false,
-                        });
-                        setNewMovieID(item?.id);
-                        setNewMovieTitle(item?.title ?? item?.name ?? '');
-                      }}>
-                      <FastImage
-                        source={{uri: `${IMAGE_URL}${item?.poster_path}`}}
-                        style={{width: 100, height: 140, borderRadius: 10}}
-                      />
-                      <Text style={styles.txtSimilar} numberOfLines={2}>
-                        {item?.title}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                }}
-                ItemSeparatorComponent={() => <Spacer width={16} />}
-              />
-            </View>
-
+            {!isEmpty(detailData?.similar?.results) ? (
+              <View style={{marginHorizontal: 16}}>
+                <Text style={styles.headerTxt}>Explore More</Text>
+                <FlatList
+                  nestedScrollEnabled
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={detailData?.similar?.results}
+                  renderItem={({item}) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={async () => {
+                          scrollViewRef.current?.scrollTo?.({
+                            y: 0,
+                            animated: false,
+                          });
+                          setNewMovieID(item?.id);
+                          setNewMovieTitle(item?.title ?? item?.name ?? '');
+                        }}>
+                        <FastImage
+                          source={{uri: `${IMAGE_URL}${item?.poster_path}`}}
+                          style={{width: 100, height: 140, borderRadius: 10}}
+                        />
+                        <Text style={styles.txtSimilar} numberOfLines={2}>
+                          {item?.title}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  }}
+                  ItemSeparatorComponent={() => <Spacer width={16} />}
+                />
+              </View>
+            ) : null}
             <Spacer height={50} />
           </ScrollView>
         )}
@@ -175,27 +184,46 @@ const DetailMovieScreen = () => {
         visible={isClickPlay}
         onClose={() => setClickPlay(!isClickPlay)}>
         <View style={{marginHorizontal: 16}}>
-          <Text style={styles.headerTxt}>Start watching</Text>
           <FlatList
             data={detailData?.videos?.results?.reverse()}
             renderItem={({item}) => {
               return (
-                <TouchableOpacity
-                  onPress={() => {
-                    onClickWatch(item);
-                  }}>
-                  <View style={styles.rowVideos}>
-                    <FastImage
-                      source={{
-                        uri: YT_THUMBNAIL(item?.key ?? ''),
-                      }}
-                      style={styles.imgVideos}
-                    />
-                    <Text style={styles.txtVideos}>{item?.name}</Text>
-                  </View>
-                </TouchableOpacity>
+                <View>
+                  <Text style={styles.headerTxt}>Start watching</Text>
+
+                  <TouchableOpacity
+                    onPress={() => {
+                      onClickWatch(item);
+                    }}>
+                    <View style={styles.rowVideos}>
+                      <FastImage
+                        source={{
+                          uri: YT_THUMBNAIL(item?.key ?? ''),
+                        }}
+                        style={styles.imgVideos}
+                      />
+                      <Text style={styles.txtVideos}>{item?.name}</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               );
             }}
+            ListEmptyComponent={() => (
+              <View>
+                <View style={styles.emptyStateContainer}>
+                  <Image
+                    source={require('@assets/images/emptyState.png')}
+                    style={styles.emptyImg}
+                  />
+                  <Text style={styles.title}>
+                    {`Oopps! Sorry we have no content\nfor this movie!`}
+                  </Text>
+                  <Text style={styles.emptyStateTxt}>
+                    {`Please enjoy our other movies while we try to updating our content.`}
+                  </Text>
+                </View>
+              </View>
+            )}
             ItemSeparatorComponent={() => <Spacer height={10} />}
             ListFooterComponent={() => <Spacer height={50} />}
           />
