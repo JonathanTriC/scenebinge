@@ -82,10 +82,20 @@ const SearchScreen = () => {
             renderItem={({item}) => (
               <TouchableOpacity
                 onPress={() => {
-                  navigateScreen<DetailMovieScreenParams>('DetailMovieScreen', {
-                    movieID: item?.id ?? 0,
-                    title: item?.title ?? item?.name ?? '',
-                  });
+                  if (item?.media_type !== 'person') {
+                    navigateScreen<DetailMovieScreenParams>(
+                      'DetailMovieScreen',
+                      {
+                        movieID: item?.id ?? 0,
+                        title: item?.title ?? item?.name ?? '',
+                      },
+                    );
+                  } else {
+                    navigateScreen<CastScreenParams>('CastScreen', {
+                      castID: item?.id ?? 0,
+                      name: item?.name ?? '',
+                    });
+                  }
                 }}>
                 <View style={styles.rowTxt}>
                   <RenderImage
