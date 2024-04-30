@@ -184,28 +184,28 @@ const DetailMovieScreen = () => {
         visible={isClickPlay}
         onClose={() => setClickPlay(!isClickPlay)}>
         <View style={{marginHorizontal: 16}}>
+          {!isEmpty(detailData?.videos?.results) ? (
+            <Text style={styles.headerTxt}>Start watching</Text>
+          ) : null}
+
           <FlatList
             data={detailData?.videos?.results?.reverse()}
             renderItem={({item}) => {
               return (
-                <View>
-                  <Text style={styles.headerTxt}>Start watching</Text>
-
-                  <TouchableOpacity
-                    onPress={() => {
-                      onClickWatch(item);
-                    }}>
-                    <View style={styles.rowVideos}>
-                      <FastImage
-                        source={{
-                          uri: YT_THUMBNAIL(item?.key ?? ''),
-                        }}
-                        style={styles.imgVideos}
-                      />
-                      <Text style={styles.txtVideos}>{item?.name}</Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    onClickWatch(item);
+                  }}>
+                  <View style={styles.rowVideos}>
+                    <FastImage
+                      source={{
+                        uri: YT_THUMBNAIL(item?.key ?? ''),
+                      }}
+                      style={styles.imgVideos}
+                    />
+                    <Text style={styles.txtVideos}>{item?.name}</Text>
+                  </View>
+                </TouchableOpacity>
               );
             }}
             ListEmptyComponent={() => (
