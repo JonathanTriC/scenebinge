@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
     padding: 8,
     top: windowHeight * 0.2,
     left: windowWidth * 0.44,
+    overflow: 'hidden',
   },
   playBlur: {
     overflow: 'hidden',

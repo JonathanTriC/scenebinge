@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 16,
     padding: 16,
     top: windowHeight * 0.46,
+    overflow: 'hidden',
   },
   cardBlur: {
     overflow: 'hidden',

@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     margin: 16,
     justifyContent: 'space-between',
   },
-  closeBtn: {padding: 4},
+  closeBtn: {padding: 4, overflow: 'hidden'},
   closeBtnBlur: {
     overflow: 'hidden',
     backgroundColor: 'transparent',

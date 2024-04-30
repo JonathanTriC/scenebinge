@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     borderRadius: 20,
+    overflow: 'hidden',
   },
   heroInfoContainer: {padding: 16, alignItems: 'center'},
   heroBlur: {
