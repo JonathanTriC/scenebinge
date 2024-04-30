@@ -1,4 +1,4 @@
-import {_handlerGetItem} from '@constants/functional';
+import {_handlerClearItem, _handlerGetItem} from '@constants/functional';
 import {Keys} from '@constants/keys';
 import {useNavigate} from '@hooks/useNavigate';
 import {useFirebaseFetchDB, useFirebaseLogOut} from '@services/firebase';
@@ -15,6 +15,7 @@ const useProfile = () => {
   };
 
   const logout = async () => {
+    await _handlerClearItem();
     await userLogOut();
   };
 
