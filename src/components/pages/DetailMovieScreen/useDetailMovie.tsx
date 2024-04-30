@@ -1,8 +1,13 @@
 import {apiGet} from '@api/wrapping';
-import {_handlerGetItem, checkIsWatchlistExist} from '@constants/functional';
+import {
+  _handlerGetItem,
+  checkIsWatchHistoryExist,
+  checkIsWatchlistExist,
+} from '@constants/functional';
 import {URL_PATH} from '@constants/url';
 import {useNavigate} from '@hooks/useNavigate';
 import {
+  useFirebaseAddWatchHistory,
   useFirebaseAddWatchList,
   useFirebaseDeleteWatchList,
 } from '@services/firebase';
@@ -21,11 +26,14 @@ const useDetailMovie = () => {
   const [getNewMovieID, setNewMovieID] = useState<number>();
   const [newMovieTitle, setNewMovieTitle] = useState<string>();
   const [isExist, setIsExist] = useState<boolean>(false);
+  const [isWatchHistoryExist, setIsWatchHistoryExist] =
+    useState<boolean>(false);
   const [docId, setDocId] = useState<string>('');
   const [isClickPlay, setClickPlay] = useState<boolean>(false);
 
   const {mutate: addWatchlist} = useFirebaseAddWatchList();
   const {mutate: removeWatchlist} = useFirebaseDeleteWatchList();
+  const {mutate: addWatchHistory} = useFirebaseAddWatchHistory();
 
   const {data: detailMovieData, refetch: refetchMovie} = useQuery<IMovieDetail>(
     {
@@ -64,11 +72,33 @@ const useDetailMovie = () => {
     },
   );
 
+  const isHistoryExist = checkIsWatchHistoryExist(newMovieTitle ?? title).then(
+    exist => {
+      setIsWatchHistoryExist(exist);
+    },
+  );
+
   const watchlistDocId = async () => {
     try {
       const docId = await _handlerGetItem(`watchlist${newMovieTitle ?? title}`);
       setDocId(docId ?? '');
     } catch (error) {}
+  };
+
+  const onClickWatch = (item: VideosResult) => {
+    setClickPlay(!isClickPlay);
+    const data: FirebaseAddWatchList = {
+      id: detailData?.id ?? 0,
+      title: detailData?.title ?? detailData?.name ?? '',
+      poster_path: detailData?.poster_path ?? '',
+    };
+    if (!isWatchHistoryExist) {
+      addWatchHistory(data);
+    }
+    navigateScreen<WatchScreenParams>('WatchScreen', {
+      youtubeKey: item?.key ?? '',
+      name: item?.name ?? '',
+    });
   };
 
   useEffect(() => {
@@ -95,6 +125,7 @@ const useDetailMovie = () => {
     docId,
     isClickPlay,
     setClickPlay,
+    onClickWatch,
   };
 };
 

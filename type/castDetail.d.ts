@@ -1,10 +1,10 @@
-export interface ICastDetail {
+interface ICastDetail {
   cast?: Cast[];
   crew?: Cast[];
   id?: number;
 }
 
-export interface Cast {
+interface Cast {
   adult?: boolean;
   backdrop_path?: null | string;
   genre_ids?: number[];
@@ -32,4 +32,4 @@ export interface Cast {
   job?: string;
 }
 
-export type MediaType = 'movie' | 'tv';
+type MediaType = 'movie' | 'tv';

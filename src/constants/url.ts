@@ -1,5 +1,11 @@
+import {Youtube_Key} from './keys';
+
 export const BASE_URL = 'https://api.themoviedb.org/3';
 export const IMAGE_URL = `https://image.tmdb.org/t/p/original`;
+export const YT_THUMBNAIL = (key: string) =>
+  `http://img.youtube.com/vi/${key}/hqdefault.jpg`;
+export const YT_METADATA = (key: string) =>
+  `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${key}&key=${Youtube_Key}`;
 
 const BASE_NAME_TRENDING = '/trending';
 const BASE_NAME_DISCOVER = '/discover';

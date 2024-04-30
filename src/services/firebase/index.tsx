@@ -267,3 +267,86 @@ export const useFirebaseDeleteWatchList = () => {
     mutate: deleteData,
   };
 };
+
+export const useFirebaseAddWatchHistory = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<any>();
+
+  const postData = async (params: FirebaseAddWatchList) => {
+    setError(undefined);
+    setLoading(true);
+
+    const userId = await _handlerGetItem(Keys.userUID);
+
+    var watchHistoryData = {
+      id: params?.id,
+      title: params?.title,
+      poster_path: params?.poster_path,
+    };
+
+    try {
+      let res = await firestore()
+        .collection('users')
+        .doc(userId ?? '')
+        .collection('watchHistory')
+        .add(watchHistoryData)
+        .then(querySnapshot => {
+          _handlerSetItem(`watchHistory${params?.title}`, querySnapshot.id);
+        });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    error,
+    mutate: postData,
+  };
+};
+
+export const useFirebaseGetWatchHistory = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<any>();
+  const [data, setData] = useState<any[]>([]);
+
+  const getData = async () => {
+    setError(undefined);
+    setLoading(true);
+
+    const userId = await _handlerGetItem(Keys.userUID);
+
+    try {
+      firestore()
+        .collection('users')
+        .doc(userId ?? '')
+        .collection('watchHistory')
+        .get()
+        .then(querySnapshot => {
+          if (querySnapshot.size > 0) {
+            const arrayData: any[] = [];
+            querySnapshot.forEach(doc => {
+              const movieData = doc.data();
+              arrayData.push(movieData);
+            });
+            setData(arrayData);
+          } else {
+            setData([]);
+          }
+        });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    error,
+    data,
+    mutate: getData,
+  };
+};

@@ -1,6 +1,6 @@
 import {BottomSheet, Spacer} from '@components/atoms';
 import Colors from '@constants/colors';
-import {IMAGE_URL} from '@constants/url';
+import {IMAGE_URL, YT_THUMBNAIL} from '@constants/url';
 import {windowHeight} from '@constants/utils';
 import {BlurView} from '@react-native-community/blur';
 import {GestureHandlerRefContext} from '@react-navigation/stack';
@@ -30,6 +30,7 @@ const DetailMovieScreen = () => {
     docId,
     isClickPlay,
     setClickPlay,
+    onClickWatch,
   } = useDetailMovie();
 
   return (
@@ -179,11 +180,14 @@ const DetailMovieScreen = () => {
             data={detailData?.videos?.results?.reverse()}
             renderItem={({item}) => {
               return (
-                <TouchableOpacity onPress={() => console.log(item?.key)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    onClickWatch(item);
+                  }}>
                   <View style={styles.rowVideos}>
                     <FastImage
                       source={{
-                        uri: `http://img.youtube.com/vi/${item?.key}/hqdefault.jpg`,
+                        uri: YT_THUMBNAIL(item?.key ?? ''),
                       }}
                       style={styles.imgVideos}
                     />

@@ -223,3 +223,13 @@ export const checkIsWatchlistExist = async (title: string) => {
     return false;
   }
 };
+
+export const checkIsWatchHistoryExist = async (title: string) => {
+  try {
+    const value = await _handlerGetItem(`watchHistory${title}`);
+
+    return !!value;
+  } catch (error) {
+    return false;
+  }
+};

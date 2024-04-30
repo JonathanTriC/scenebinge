@@ -22,6 +22,11 @@ interface CastScreenParams {
   name: string;
 }
 
+interface WatchScreenParams {
+  youtubeKey: string;
+  name: string;
+}
+
 type ParamList = {
   SplashScreen: SplashScreenParams;
   OnboardingScreen: OnboardingScreenParams;
@@ -37,4 +42,5 @@ type ParamList = {
   WatchlistScreen: WatchlistScreenParams;
   DetailMovieScreen: DetailMovieScreenParams;
   CastScreen: CastScreenParams;
+  WatchScreen: WatchScreenParams;
 };

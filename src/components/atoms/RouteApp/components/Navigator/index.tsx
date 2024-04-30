@@ -5,6 +5,7 @@ import {
   SearchScreen,
   SplashScreen,
   WatchHistoryScreen,
+  WatchScreen,
   WatchlistScreen,
 } from '@components/pages';
 import {LoginScreen, SignUpScreen} from '@components/pages/Authentication';
@@ -71,6 +72,28 @@ export const Navigator: React.FC<NavigatorProps> = () => {
         }}
       />
       <Stack.Screen name={'CastScreen'} component={CastScreen} />
+      <Stack.Screen
+        name={'WatchScreen'}
+        component={WatchScreen}
+        options={{
+          gestureDirection: 'vertical',
+          gestureResponseDistance: windowHeight / 2,
+          cardStyleInterpolator: ({current, layouts}: any) => {
+            return {
+              cardStyle: {
+                transform: [
+                  {
+                    translateY: current.progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [layouts.screen.height, 0],
+                    }),
+                  },
+                ],
+              },
+            };
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 };
