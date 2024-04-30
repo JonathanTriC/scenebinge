@@ -1,13 +1,11 @@
-import {Button} from '@components/atoms';
+import {Button, RenderImage} from '@components/atoms';
 import Colors from '@constants/colors';
 import {parseGenreName} from '@constants/functional';
-import {IMAGE_URL} from '@constants/url';
 import {useNavigate} from '@hooks/useNavigate';
 import {BlurView} from '@react-native-community/blur';
 import {useFirebaseAddWatchList} from '@services/firebase';
 import dayjs from 'dayjs';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {Icon} from 'react-native-paper';
 import {styles} from './style';
 
@@ -30,10 +28,7 @@ const Hero = ({data}: HeroProps) => {
       renderItem={({item}) => {
         return (
           <View>
-            <FastImage
-              source={{uri: `${IMAGE_URL}${item?.poster_path}`}}
-              style={styles.heroImg}
-            />
+            <RenderImage imageUrl={item?.poster_path} style={styles.heroImg} />
 
             <View style={styles.heroInfoWrapper}>
               <BlurView

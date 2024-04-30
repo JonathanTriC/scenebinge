@@ -1,15 +1,13 @@
-import {Button, Spacer} from '@components/atoms';
+import {Button, RenderImage, Spacer} from '@components/atoms';
 import {Header} from '@components/molecules';
 import Colors from '@constants/colors';
 import {parseGenreName} from '@constants/functional';
-import {IMAGE_URL} from '@constants/url';
 import {windowWidth} from '@constants/utils';
 import {BlurView} from '@react-native-community/blur';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {useFirebaseAddWatchList} from '@services/firebase';
 import dayjs from 'dayjs';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {Icon} from 'react-native-paper';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {styles} from './style';
@@ -60,8 +58,8 @@ const ExploreScreen = () => {
           renderItem={({item}) => {
             return (
               <View>
-                <FastImage
-                  source={{uri: `${IMAGE_URL}${item?.poster_path}`}}
+                <RenderImage
+                  imageUrl={item?.poster_path}
                   style={styles.heroImg}
                 />
 

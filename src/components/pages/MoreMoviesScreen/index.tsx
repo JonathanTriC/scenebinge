@@ -1,9 +1,7 @@
-import {Spacer} from '@components/atoms';
+import {RenderImage, Spacer} from '@components/atoms';
 import {Header} from '@components/molecules';
-import {IMAGE_URL} from '@constants/url';
 import {useLayoutEffect} from 'react';
 import {FlatList, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {styles} from './styles';
 import useMoreMovies from './useMoreMovies';
@@ -43,10 +41,7 @@ const MoreMoviesScreen = () => {
                   title: item?.title ?? item?.name ?? '',
                 });
               }}>
-              <FastImage
-                source={{uri: `${IMAGE_URL}${item?.poster_path}`}}
-                style={styles.img}
-              />
+              <RenderImage imageUrl={item?.poster_path} style={styles.img} />
             </TouchableOpacity>
           );
         }}

@@ -1,12 +1,10 @@
-import {Spacer, TextField} from '@components/atoms';
+import {RenderImage, Spacer, TextField} from '@components/atoms';
 import {Header} from '@components/molecules';
 import Colors from '@constants/colors';
-import {IMAGE_URL} from '@constants/url';
 import {isEmpty} from 'lodash';
 import {useLayoutEffect} from 'react';
 import {Controller} from 'react-hook-form';
 import {FlatList, Image, Text, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Icon} from 'react-native-paper';
 import {styles} from './styles';
@@ -90,13 +88,15 @@ const SearchScreen = () => {
                   });
                 }}>
                 <View style={styles.rowTxt}>
-                  <FastImage
-                    source={{
-                      uri: item?.poster_path
-                        ? `${IMAGE_URL}${item?.poster_path}`
-                        : `https://placehold.jp/60x80.png?text=Image%0AUnavailable`,
-                    }}
-                    style={styles.img}
+                  <RenderImage
+                    imageUrl={item?.poster_path ?? item?.profile_path ?? ''}
+                    width={60}
+                    height={80}
+                    style={
+                      item?.media_type !== 'person'
+                        ? styles.imgMovie
+                        : styles.imgPerson
+                    }
                   />
                   <Text style={styles.nameTxt}>
                     {item?.title ?? item?.name}

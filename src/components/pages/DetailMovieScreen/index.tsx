@@ -1,6 +1,6 @@
-import {BottomSheet, Spacer} from '@components/atoms';
+import {BottomSheet, RenderImage, Spacer} from '@components/atoms';
 import Colors from '@constants/colors';
-import {IMAGE_URL, YT_THUMBNAIL} from '@constants/url';
+import {YT_THUMBNAIL} from '@constants/url';
 import {windowHeight} from '@constants/utils';
 import {BlurView} from '@react-native-community/blur';
 import {GestureHandlerRefContext} from '@react-navigation/stack';
@@ -53,8 +53,8 @@ const DetailMovieScreen = () => {
             showsVerticalScrollIndicator={false}
             style={{flex: 1}}>
             <View>
-              <FastImage
-                source={{uri: `${IMAGE_URL}${detailData?.poster_path}`}}
+              <RenderImage
+                imageUrl={detailData?.poster_path}
                 style={styles.posterImg}
               />
               <LinearGradient
@@ -125,8 +125,8 @@ const DetailMovieScreen = () => {
                           name: item?.name ?? '',
                         })
                       }>
-                      <FastImage
-                        source={{uri: `${IMAGE_URL}${item?.profile_path}`}}
+                      <RenderImage
+                        imageUrl={item?.profile_path ?? ''}
                         style={{width: 80, height: 80, borderRadius: 40}}
                       />
                       <Text style={styles.txtCast} numberOfLines={2}>
@@ -160,8 +160,8 @@ const DetailMovieScreen = () => {
                           setNewMovieID(item?.id);
                           setNewMovieTitle(item?.title ?? item?.name ?? '');
                         }}>
-                        <FastImage
-                          source={{uri: `${IMAGE_URL}${item?.poster_path}`}}
+                        <RenderImage
+                          imageUrl={item?.poster_path}
                           style={{width: 100, height: 140, borderRadius: 10}}
                         />
                         <Text style={styles.txtSimilar} numberOfLines={2}>

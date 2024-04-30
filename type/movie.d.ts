@@ -7,6 +7,7 @@ interface IMovieList {
   original_name?: string;
   overview?: string;
   poster_path?: string;
+  profile_path?: string;
   media_type?: MediaType;
   genre_ids?: number[];
   popularity?: number;
@@ -20,6 +21,6 @@ interface IMovieList {
   video?: boolean;
 }
 
-type MediaType = 'tv' | 'movie';
+type MediaType = 'tv' | 'movie' | 'person';
 
 type OriginalLanguage = 'en' | 'fr' | 'ja';

@@ -32,4 +32,4 @@ interface Cast {
   job?: string;
 }
 
-type MediaType = 'movie' | 'tv';
+type MediaType = 'movie' | 'tv' | 'person';

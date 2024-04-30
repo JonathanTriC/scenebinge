@@ -1,11 +1,9 @@
-import {Button, Spacer} from '@components/atoms';
+import {Button, RenderImage, Spacer} from '@components/atoms';
 import {Header} from '@components/molecules';
 import Colors from '@constants/colors';
-import {IMAGE_URL} from '@constants/url';
 import {isEmpty} from 'lodash';
 import {useLayoutEffect} from 'react';
 import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {Icon} from 'react-native-paper';
 import {styles} from './styles';
 import useWatchHistory from './useWatchHistory';
@@ -41,10 +39,11 @@ const WatchHistoryScreen = () => {
                     );
                   }}>
                   <View style={styles.itemRow}>
-                    <FastImage
-                      source={{uri: `${IMAGE_URL}${item?.poster_path}`}}
+                    <RenderImage
+                      imageUrl={item?.poster_path}
                       style={styles.itemImg}
                     />
+
                     <Text style={styles.itemTxt}>{item?.title}</Text>
                     <Icon
                       source={'chevron-right'}

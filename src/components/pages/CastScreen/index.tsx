@@ -1,9 +1,7 @@
-import {Spacer} from '@components/atoms';
+import {RenderImage, Spacer} from '@components/atoms';
 import {Header} from '@components/molecules';
-import {IMAGE_URL} from '@constants/url';
 import {useLayoutEffect} from 'react';
 import {FlatList, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {styles} from './styles';
 import useCast from './useCast';
@@ -34,13 +32,11 @@ const CastScreen = () => {
                   title: item?.title ?? item?.name ?? '',
                 });
               }}>
-              <FastImage
-                source={{
-                  uri: item?.poster_path
-                    ? `${IMAGE_URL}${item?.poster_path}`
-                    : `https://placehold.jp/110x150.png?text=Image%0AUnavailable`,
-                }}
-                style={styles.img}
+              <RenderImage
+                imageUrl={item?.poster_path}
+                width={110}
+                height={150}
+                style={styles?.img}
               />
             </TouchableOpacity>
           );

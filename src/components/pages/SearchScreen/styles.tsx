@@ -36,10 +36,17 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     color: Colors.white,
   },
-  img: {
+  imgMovie: {
     height: 80,
     width: 60,
     borderRadius: 10,
+    marginHorizontal: 4,
+    marginVertical: 8,
+  },
+  imgPerson: {
+    height: 60,
+    width: 60,
+    borderRadius: 30,
     marginHorizontal: 4,
     marginVertical: 8,
   },

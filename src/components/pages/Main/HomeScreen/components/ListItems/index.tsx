@@ -1,8 +1,6 @@
-import {Spacer} from '@components/atoms';
-import {IMAGE_URL} from '@constants/url';
+import {RenderImage, Spacer} from '@components/atoms';
 import {useNavigate} from '@hooks/useNavigate';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {styles} from './styles';
 
 type ListItemsProps = {
@@ -34,10 +32,7 @@ const ListItems = ({data, title, onSeeMore}: ListItemsProps) => {
                   title: item?.title ?? item?.name ?? '',
                 });
               }}>
-              <FastImage
-                source={{uri: `${IMAGE_URL}${item?.poster_path}`}}
-                style={styles.img}
-              />
+              <RenderImage imageUrl={item?.poster_path} style={styles.img} />
             </TouchableOpacity>
           );
         }}
