@@ -1,6 +1,6 @@
 import Colors from '@constants/colors';
 import {windowHeight, windowWidth} from '@constants/utils';
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   heroImg: {
@@ -21,8 +21,8 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: 'transparent',
     borderRadius: 20,
-    marginHorizontal: 16,
-    marginBottom: 16,
+    marginHorizontal: Platform.OS === 'ios' ? 16 : 0,
+    marginBottom: Platform.OS === 'ios' ? 16 : 0,
   },
   heroTitle: {
     color: Colors.white,
