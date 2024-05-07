@@ -3,6 +3,7 @@ import {Keys} from '@constants/keys';
 import {useNavigate} from '@hooks/useNavigate';
 import {useFirebaseFetchDB, useFirebaseLogOut} from '@services/firebase';
 import {useEffect} from 'react';
+import FastImage from 'react-native-fast-image';
 
 const useProfile = () => {
   const {navigateScreen, resetNavigate} = useNavigate();
@@ -16,6 +17,8 @@ const useProfile = () => {
 
   const logout = async () => {
     await _handlerClearItem();
+    await FastImage.clearDiskCache();
+    await FastImage.clearMemoryCache();
     await userLogOut();
   };
 
